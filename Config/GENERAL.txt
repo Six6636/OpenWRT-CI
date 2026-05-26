@@ -131,7 +131,7 @@ CONFIG_PACKAGE_luci-app-tailscale=y
 #CONFIG_PACKAGE_luci-app-momo=y
 #CONFIG_PACKAGE_luci-app-openclash=y
 
-#增加插件（正式激活 Bandix 及其 eBPF 内核依赖）
+#增加插件
 CONFIG_PACKAGE_luci-app-bandix=y
 CONFIG_PACKAGE_kmod-ebpf=y
 CONFIG_PACKAGE_kmod-bpf=y
