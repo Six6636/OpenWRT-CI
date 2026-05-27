@@ -139,12 +139,12 @@ CONFIG_PACKAGE_luci-app-turboacc=y
 #CONFIG_PACKAGE_luci-app-lucky=y
 #CONFIG_PACKAGE_luci-app-smartdns=y
 #CONFIG_PACKAGE_luci-app-netwizard=y
-#CONFIG_PACKAGE_luci-app-netspeedtest=y
+CONFIG_PACKAGE_luci-app-netspeedtest=y
 CONFIG_PACKAGE_kmod-lp=y
 CONFIG_PACKAGE_kmod-usb-printer=y
 
 #修复 netspeedtest 缺失的 Python3 依赖环境
-#CONFIG_PACKAGE_python3=y
-#CONFIG_PACKAGE_python3-base=y
-#CONFIG_PACKAGE_python3-email=y
-#CONFIG_PACKAGE_python3-pkg-resources=y
+CONFIG_PACKAGE_python3=y
+CONFIG_PACKAGE_python3-base=y
+CONFIG_PACKAGE_python3-email=y
+CONFIG_PACKAGE_python3-pkg-resources=y
