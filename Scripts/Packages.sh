@@ -83,6 +83,7 @@ UPDATE_PACKAGE "luci-app-wrtbwmon" "brvphoenix/luci-app-wrtbwmon" "master"
 UPDATE_PACKAGE "wrtbwmon" "brvphoenix/wrtbwmon" "master"
 UPDATE_PACKAGE "turboacc" "mufeng05/luci-app-turboacc" "main"
 UPDATE_PACKAGE "bandix" "timsaya/luci-app-bandix" "main"
+UPDATE_PACKAGE "luci-app-store" "linkease/istore" "main"
 
 #更新软件包版本
 UPDATE_VERSION() {
