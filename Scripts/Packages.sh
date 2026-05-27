@@ -82,7 +82,7 @@ UPDATE_PACKAGE "vnt" "lmq8267/luci-app-vnt" "main"
 UPDATE_PACKAGE "luci-app-wrtbwmon" "brvphoenix/luci-app-wrtbwmon" "master"
 UPDATE_PACKAGE "wrtbwmon" "brvphoenix/wrtbwmon" "master"
 UPDATE_PACKAGE "turboacc" "mufeng05/luci-app-turboacc" "main"
-UPDATE_PACKAGE "luci-app-bandix" "timsaya/luci-app-bandix" "master"
+UPDATE_PACKAGE "luci-app-bandix" "timsaya/luci-app-bandix" "main"
 
 #更新软件包版本
 UPDATE_VERSION() {
