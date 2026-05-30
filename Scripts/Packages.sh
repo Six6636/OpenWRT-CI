@@ -85,6 +85,7 @@ UPDATE_PACKAGE "luci-app-bandix" "timsaya/luci-app-bandix" "main"
 UPDATE_PACKAGE "openwrt-bandix" "timsaya/openwrt-bandix" "main"
 UPDATE_PACKAGE "luci-app-store" "linkease/istore" "main"
 UPDATE_PACKAGE "turboacc" "mufeng05/luci-app-turboacc" "main"
+UPDATE_PACKAGE "luci-app-cupsd" "sirpdboy/luci-app-cupsd" "main"
 
 #更新软件包版本
 UPDATE_VERSION() {
