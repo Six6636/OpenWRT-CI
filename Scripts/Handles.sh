@@ -53,14 +53,18 @@ if [ -d *"luci-app-mini-diskmanager"* ]; then
 	cd $PKG_PATH && echo "mini-diskmanager has been fixed!"
 fi
 
-#修改cupsd菜单位置和标题
+#修改cupsd菜单位置和标题 - 修复版本
 if [ -d *"luci-app-cupsd"* ]; then
 	echo " " && cd ./luci-app-cupsd/
 
-	# 修改菜单位置从 services 改为 administration，添加中文标题
+	# 确保菜单文件存在
 	if [ -f "./root/usr/share/luci/menu.d/luci-app-cupsd.json" ]; then
-		sed -i 's/"services"/"administration"/g; s/"CUPS Printing"/"打印服务"/g; s/"CUPS printer sharing server"/"CUPS打印服务管理"/g' ./root/usr/share/luci/menu.d/luci-app-cupsd.json
-		echo "cupsd menu position has been fixed!"
+		# 统一菜单路径为 services（保持一致性）
+		sed -i 's|"admin/administration/cupsd"|"admin/services/cupsd"|g' ./root/usr/share/luci/menu.d/luci-app-cupsd.json
+		# 添加或更新中文标题
+		sed -i 's/"title"[[:space:]]*:[[:space:]]*"[^"]*"/"title": "CUPS打印服务"/g' ./root/usr/share/luci/menu.d/luci-app-cupsd.json
+		sed -i 's/"description"[[:space:]]*:[[:space:]]*"[^"]*"/"description": "CUPS打印服务管理"/g' ./root/usr/share/luci/menu.d/luci-app-cupsd.json
+		echo "cupsd menu has been fixed!"
 	fi
 
 	cd $PKG_PATH && echo "luci-app-cupsd has been fixed!"
