@@ -143,7 +143,7 @@ CONFIG_PACKAGE_luci-app-turboacc=y
 #CONFIG_PACKAGE_mihomo-alpha=y
 #CONFIG_PACKAGE_mihomo-meta=y
 
-#打印服务配置 - CUPS 打印服务器 + AirPrint 支持
+#打印服务配置 - CUPS 打印服务器 + AirPrint 支持（iOS/Android/Windows）
 CONFIG_PACKAGE_luci-app-cupsd=y
 CONFIG_PACKAGE_cupsd=y
 CONFIG_PACKAGE_cups-filters=y
@@ -153,13 +153,19 @@ CONFIG_PACKAGE_avahi-daemon=y
 CONFIG_PACKAGE_avahi-dbus-daemon=y
 CONFIG_PACKAGE_avahi-utils=y
 
-#苹果设备打印驱动依赖
+#苹果设备打印驱动依赖（AirPrint/iPad/iPhone 支持）
 CONFIG_PACKAGE_libimobiledevice=y
 CONFIG_PACKAGE_usbmuxd=y
 
-#爱普生L301打印机驱动依赖
+#打印机驱动 - USB 打印机和网络打印机支持
 CONFIG_PACKAGE_kmod-lp=y
 CONFIG_PACKAGE_kmod-usb-printer=y
+
+#打印机制造商特殊驱动（可选）
+#爱普生(Epson) L系列打印机驱动
+#CONFIG_PACKAGE_gutenprint=y
+#佳能(Canon) 打印机驱动
+#CONFIG_PACKAGE_cups-bjnp=y
 
 #修复 netspeedtest 缺失的 Python3 依赖环境
 #CONFIG_PACKAGE_luci-app-netspeedtest=y
