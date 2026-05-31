@@ -157,19 +157,24 @@ EOF
     chmod +x "$CUPSD_DIR/root/etc/init.d/cupsd"
 fi
 
-# 6. 创建菜单文件
+# 6. 创建菜单文件 - 修复版本，确保菜单能显示
 if [ ! -f "$CUPSD_DIR/root/usr/share/luci/menu.d/luci-app-cupsd.json" ]; then
     echo "[INFO] Creating menu file..."
     cat > "$CUPSD_DIR/root/usr/share/luci/menu.d/luci-app-cupsd.json" << 'EOF'
 {
   "admin/services/cupsd": {
-    "title": "CUPS",
+    "title": "CUPS打印服务",
+    "description": "CUPS打印服务管理",
     "order": 100,
     "action": "admin/services/cupsd",
     "depends": "luci-app-cupsd"
   }
 }
 EOF
+else
+    # 如果菜单文件已存在，确保菜单路径正确
+    echo "[INFO] Updating existing menu file..."
+    sed -i 's|"admin/administration/cupsd"|"admin/services/cupsd"|g' "$CUPSD_DIR/root/usr/share/luci/menu.d/luci-app-cupsd.json"
 fi
 
 echo "[SUCCESS] luci-app-cupsd fix completed!"
