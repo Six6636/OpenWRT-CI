@@ -7,8 +7,8 @@ echo "=========================================="
 echo "Fixing luci-app-cupsd missing files..."
 echo "=========================================="
 
-# 查找 luci-app-cupsd 目录
-CUPSD_DIR=$(find ../feeds/ -maxdepth 3 -type d -name "luci-app-cupsd" 2>/dev/null | head -1)
+# 查找 luci-app-cupsd 目录（先查当前目录，再查feeds）
+CUPSD_DIR=$(find . ../feeds/ -maxdepth 3 -type d -name "luci-app-cupsd" 2>/dev/null | head -1)
 
 if [ -z "$CUPSD_DIR" ]; then
     echo "[ERROR] luci-app-cupsd not found!"
