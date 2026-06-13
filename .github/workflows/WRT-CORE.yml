@@ -155,17 +155,22 @@ jobs:
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
-      - name: Custom Packages
+      - name: Custom Packages and Fixes
         run: |
           cd ./wrt/package/
 
           $GITHUB_WORKSPACE/Scripts/Packages.sh
           $GITHUB_WORKSPACE/Scripts/Handles.sh
-      - name: Fix CUPS Plugin
-        run: |
-          cd ./wrt/package/
-
-          $GITHUB_WORKSPACE/Scripts/Fix-CUPS.sh
+          
+          # 验证 CUPS 文件已创建
+          if [ -d "luci-app-cupsd" ]; then
+            echo "[VERIFY] CUPS controller file:"
+            ls -la luci-app-cupsd/luasrc/controller/cupsd.lua 2>&1 || echo "Not found"
+            echo "[VERIFY] CUPS CBI model file:"
+            ls -la luci-app-cupsd/luasrc/model/cbi/cupsd/basic.lua 2>&1 || echo "Not found"
+            echo "[VERIFY] CUPS menu file:"
+            ls -la luci-app-cupsd/root/usr/share/luci/menu.d/luci-app-cupsd.json 2>&1 || echo "Not found"
+          fi
 
       - name: Custom Settings
         run: |
