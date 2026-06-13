@@ -53,18 +53,100 @@ if [ -d *"luci-app-mini-diskmanager"* ]; then
 	cd $PKG_PATH && echo "mini-diskmanager has been fixed!"
 fi
 
-#修改cupsd菜单位置和标题 - 修复版本
+#修改cupsd菜单位置和标题 - 强制版本（确保文件存在）
 if [ -d *"luci-app-cupsd"* ]; then
 	echo " " && cd ./luci-app-cupsd/
 
-	# 确保菜单文件存在
-	if [ -f "./root/usr/share/luci/menu.d/luci-app-cupsd.json" ]; then
-		# 统一菜单路径为 services（保持一致性）
-		sed -i 's|"admin/administration/cupsd"|"admin/services/cupsd"|g' ./root/usr/share/luci/menu.d/luci-app-cupsd.json
-		# 添加或更新中文标题
-		sed -i 's/"title"[[:space:]]*:[[:space:]]*"[^"]*"/"title": "CUPS打印服务"/g' ./root/usr/share/luci/menu.d/luci-app-cupsd.json
-		sed -i 's/"description"[[:space:]]*:[[:space:]]*"[^"]*"/"description": "CUPS打印服务管理"/g' ./root/usr/share/luci/menu.d/luci-app-cupsd.json
-		echo "cupsd menu has been fixed!"
+	# 创建必要的目录结构
+	mkdir -p ./luasrc/controller
+	mkdir -p ./luasrc/model/cbi/cupsd
+	mkdir -p ./root/usr/share/luci/menu.d
+	mkdir -p ./root/etc/config
+	mkdir -p ./root/etc/init.d
+
+	# 1. 强制创建/更新菜单文件
+	echo "[INFO] Creating/Updating CUPS menu file..."
+	cat > ./root/usr/share/luci/menu.d/luci-app-cupsd.json << 'EOF'
+{
+  "admin/services/cupsd": {
+    "title": "CUPS打印服务",
+    "description": "CUPS打印服务管理",
+    "order": 100,
+    "action": "admin/services/cupsd",
+    "depends": "luci-app-cupsd"
+  }
+}
+EOF
+
+	# 2. 强制创建/更新 controller 文件
+	if [ ! -f "./luasrc/controller/cupsd.lua" ]; then
+		echo "[INFO] Creating controller file..."
+		cat > ./luasrc/controller/cupsd.lua << 'EOF'
+-- Copyright (C) 2018 dz <dingzhong110@gmail.com>
+-- mod by 2021-2022  sirpdboy  <herboy2008@gmail.com> https://github.com/sirpdboy/luci-app-cupsd
+
+module("luci.controller.cupsd", package.seeall)
+
+function index()
+	if not nixio.fs.access("/etc/config/cupsd") then
+		return
+	end
+
+	local page = entry({"admin", "services", "cupsd"}, alias("admin", "services", "cupsd", "basic"), _("CUPS打印服务器"), 60)
+	page.dependent = true
+	page.acl_depends = { "luci-app-cupsd" }
+	entry({"admin", "services", "cupsd", "basic"}, cbi("cupsd/basic"), _("设置"), 10).leaf = true
+
+	entry({"admin", "services", "cupsd_status"}, call("act_status"))
+end
+
+function act_status()
+	local sys  = require "luci.sys"
+	local uci  = require "luci.model.uci".cursor()
+	local port = tonumber(uci:get_first("cupsd", "cupsd", "port") )
+	local e = { }
+	e.running = sys.call("pidof cupsd > /dev/null") == 0
+	e.port = port or 631
+	luci.http.prepare_content("application/json")
+	luci.http.write_json(e)
+end
+EOF
+	fi
+
+	# 3. 强制创建/更新 CBI 模型文件
+	if [ ! -f "./luasrc/model/cbi/cupsd/basic.lua" ]; then
+		echo "[INFO] Creating CBI model file..."
+		cat > ./luasrc/model/cbi/cupsd/basic.lua << 'EOF'
+local sys = require "luci.sys"
+
+m = Map("cupsd", translate("CUPS 打印服务器"), translate("Common UNIX Printing System"))
+m.redirect = luci.dispatcher.build_url("admin/services/cupsd")
+
+s = m:section(TypedSection, "cupsd", translate("设置"))
+s.addremove = false
+s.anonymous = true
+
+o = s:option(Flag, "enable", translate("启用 CUPS"))
+o.rmempty = false
+o.default = 1
+
+o = s:option(Value, "port", translate("CUPS 端口"))
+o.datatype = "port"
+o.default = 631
+o.rmempty = false
+
+return m
+EOF
+	fi
+
+	# 4. 强制创建/更新配置文件
+	if [ ! -f "./root/etc/config/cupsd" ]; then
+		echo "[INFO] Creating config file..."
+		cat > ./root/etc/config/cupsd << 'EOF'
+config cupsd
+	option enable '1'
+	option port '631'
+EOF
 	fi
 
 	cd $PKG_PATH && echo "luci-app-cupsd has been fixed!"
