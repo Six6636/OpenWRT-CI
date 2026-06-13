@@ -139,9 +139,9 @@ CONFIG_PACKAGE_luci-app-turboacc=y
 #CONFIG_PACKAGE_luci-app-smartdns=y
 #CONFIG_PACKAGE_luci-app-netwizard=y
 
-#注意: mihomo-alpha 和 mihomo-meta 存在循环依赖冲突，已注释以解决编译问题
-#CONFIG_PACKAGE_mihomo-alpha=y
-#CONFIG_PACKAGE_mihomo-meta=y
+#重要: mihomo-alpha 和 mihomo-meta 存在循环依赖冲突，必须禁用以解决编译问题
+CONFIG_PACKAGE_mihomo-alpha=n
+CONFIG_PACKAGE_mihomo-meta=n
 
 #打印服务配置 - CUPS 打印服务器 + AirPrint 支持（iOS/Android/Windows）
 CONFIG_PACKAGE_luci-app-cupsd=y
