@@ -115,3 +115,7 @@ CONFIG_PACKAGE_usb-modeswitch=y
 CONFIG_PACKAGE_usbmuxd=y
 CONFIG_PACKAGE_usbutils=y
 CONFIG_PACKAGE_xz-utils=y
+
+#重要: 禁用 mihomo 包避免循环依赖冲突
+CONFIG_PACKAGE_mihomo-alpha=n
+CONFIG_PACKAGE_mihomo-meta=n
