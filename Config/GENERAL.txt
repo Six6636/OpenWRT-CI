@@ -170,7 +170,7 @@ CONFIG_PACKAGE_kmod-usb-printer=y
 
 #打印机制造商特殊驱动（可选）
 #爱普生(Epson) L系列打印机驱动
-#CONFIG_PACKAGE_gutenprint=y
+CONFIG_PACKAGE_gutenprint=y
 #佳能(Canon) 打印机驱动
 #CONFIG_PACKAGE_cups-bjnp=y
 
