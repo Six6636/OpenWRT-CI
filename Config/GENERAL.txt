@@ -1,14 +1,14 @@
 #科学插件调整
-CONFIG_PACKAGE_luci-app-homeproxy=y
+#CONFIG_PACKAGE_luci-app-homeproxy=y
 #增加插件
 CONFIG_PACKAGE_luci-app-autoreboot=y
-CONFIG_PACKAGE_luci-app-gecoosac=y
+#CONFIG_PACKAGE_luci-app-gecoosac=y
 CONFIG_PACKAGE_luci-app-mini-diskmanager=y
 CONFIG_PACKAGE_luci-app-natmapt=y
 CONFIG_PACKAGE_luci-app-partexp=y
 CONFIG_PACKAGE_luci-app-samba4=y
 CONFIG_PACKAGE_luci-app-upnp=y
-CONFIG_PACKAGE_luci-app-wolultra=y
+CONFIG_PACKAGE_luci-app-wolplus=y
 #删除插件
 CONFIG_PACKAGE_luci-app-attendedsysupgrade=n
 CONFIG_PACKAGE_luci-app-wol=n
@@ -122,3 +122,56 @@ CONFIG_PACKAGE_usb-modeswitch=y
 CONFIG_PACKAGE_usbmuxd=y
 CONFIG_PACKAGE_usbutils=y
 CONFIG_PACKAGE_xz-utils=y
+#以下私人定制插件
+
+#科学插件调整
+CONFIG_PACKAGE_luci-app-nikki=y
+CONFIG_PACKAGE_luci-app-tailscale=y
+#CONFIG_PACKAGE_luci-app-momo=y
+#CONFIG_PACKAGE_luci-app-openclash=y
+#增加插件
+CONFIG_PACKAGE_luci-app-bandix=y
+CONFIG_PACKAGE_kmod-ebpf=y
+CONFIG_PACKAGE_kmod-bpf=y
+#CONFIG_PACKAGE_luci-app-appfilter=y
+CONFIG_PACKAGE_luci-app-ttyd=y
+CONFIG_PACKAGE_luci-app-vlmcsd=y
+#CONFIG_PACKAGE_luci-app-turboacc=y
+#CONFIG_PACKAGE_luci-app-wrtbwmon=n
+#CONFIG_PACKAGE_luci-app-lucky=y
+#CONFIG_PACKAGE_luci-app-smartdns=y
+#CONFIG_PACKAGE_luci-app-netwizard=y
+#重要: mihomo-alpha 和 mihomo-meta 存在循环依赖冲突，必须禁用以解决编译问题
+CONFIG_PACKAGE_mihomo-alpha=n
+CONFIG_PACKAGE_mihomo-meta=n
+#打印机驱动 - USB 打印机和网络打印机支持
+CONFIG_PACKAGE_kmod-lp=y
+CONFIG_PACKAGE_kmod-usb-printer=y
+#打印服务配置 - CUPS 打印服务器 + AirPrint 支持（iOS/Android/Windows）
+#CONFIG_PACKAGE_luci-app-cupsd=y
+#CONFIG_PACKAGE_cupsd=y
+#CONFIG_PACKAGE_cups-filters=y
+#Avahi 服务 - mDNS/DNS-SD 服务发现（AirPrint 依赖）
+#CONFIG_PACKAGE_avahi-daemon=y
+#CONFIG_PACKAGE_avahi-dbus-daemon=y
+#CONFIG_PACKAGE_avahi-utils=y
+#苹果设备打印驱动依赖（AirPrint/iPad/iPhone 支持）# AirPrint 隔空打印完整依赖
+#CONFIG_PACKAGE_libimobiledevice=y
+#CONFIG_PACKAGE_usbmuxd=y
+#CONFIG_PACKAGE_avahi-daemon=y
+#CONFIG_PACKAGE_avahi-utils=y
+#CONFIG_PACKAGE_dbus=y
+#CONFIG_PACKAGE_libdaemon=y
+#CONFIG_PACKAGE_cups=y
+#CONFIG_PACKAGE_cups-filters=y
+#打印机制造商特殊驱动（可选）
+#爱普生(Epson) L系列打印机驱动
+#CONFIG_PACKAGE_gutenprint=y
+#佳能(Canon) 打印机驱动
+#CONFIG_PACKAGE_cups-bjnp=y
+#修复 netspeedtest 缺失的 Python3 依赖环境
+#CONFIG_PACKAGE_luci-app-netspeedtest=y
+#CONFIG_PACKAGE_python3=y
+#CONFIG_PACKAGE_python3-base=y
+#CONFIG_PACKAGE_python3-email=y
+#CONFIG_PACKAGE_python3-pkg-resources=y
