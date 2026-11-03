@@ -1,28 +1,3 @@
-# 高质量<免费>交流群
-
-[IPQ技术讨论群](https://qm.qq.com/q/v7nMhzB4oU)
-
-# 高质量<付费>中转站
-
-[LiBwrt-Ai](https://api.zipimg.cn/register?aff=FFPS3UMJ8HJD)
-
-# 本地编译器
-
-https://github.com/VIKINGYFY/OWRT-Tools.git
-
-# 自用修改版插件
-
-https://github.com/VIKINGYFY/packages.git
-
-# OpenWRT-CI
-
-官方版：
-
-https://github.com/immortalwrt/immortalwrt.git
-
-自用版：
-
-https://github.com/VIKINGYFY/immortalwrt.git
 
 # U-BOOT
 
