@@ -1,24 +1,32 @@
 #!/bin/bash
-# 私有扩展脚本：每次构建时在 Packages.sh 末尾自动执行
+# 私有扩展脚本：在 Packages.sh 末尾自动执行
 
-# 把插件的顶级菜单挂到 "服务" 下
-# 只处理 "admin/xxx" 这种一级路径，已经是 admin/services/xxx 的不会被改第二次
-move_to_services() {
+# 把插件的顶级菜单挂到 "服务" 下，可选改标题
+# 用法: move_menu_to_services <源码目录> ["新标题"]
+move_menu_to_services() {
 	local DIR="$1"
-	local F
+	local TITLE="$2"
+	local FOUND=0 F
 
-	F=$(find "$DIR" -path '*/usr/share/luci/menu.d/*.json' 2>/dev/null | head -n1)
-	if [ -z "$F" ]; then
-		echo "move_to_services: $DIR 里没有 menu.d/*.json（可能是老式 Lua 插件）"
-		return 0
-	fi
+	while IFS= read -r F; do
+		[ -z "$F" ] && continue
+		FOUND=1
 
-	sed -i 's#"admin/\([^"/]*\)":#"admin/services/\1":#g' "$F"
-	echo "move_to_services: 已处理 $F"
-	grep -n '"admin/' "$F"
+		# 只改一层路径：admin/xxx → admin/services/xxx
+		sed -i 's#"admin/\([^"/]*\)":#"admin/services/\1":#g' "$F"
+
+		# 只改文件里第一个 title，避免误改分组标题
+		if [ -n "$TITLE" ]; then
+			sed -i "0,/\"title\": *\"[^\"]*\"/s//\"title\": \"$TITLE\"/" "$F"
+		fi
+
+		echo "menu -> services: $F"
+		grep -n '"admin/' "$F"
+	done < <(find "$DIR" -path '*/usr/share/luci/menu.d/*.json' 2>/dev/null)
+
+	[ "$FOUND" = "1" ] || echo "skip: $DIR 里没有 menu.d/*.json（可能是老式 Lua 插件）"
 }
 
-# 应用过滤 → 服务
-move_to_services "./package/OpenAppFilter"
-move_to_services "./package/nikki"
-move_to_services "./package/tailscale"
+move_menu_to_services "./package/OpenAppFilter"      "应用过滤"
+move_menu_to_services "./package/OpenWrt-nikki"      "Nikki"
+move_menu_to_services "./package/luci-app-tailscale" "Tailscale"
