@@ -65,6 +65,9 @@ UPDATE_PACKAGE "passwall2" "Openwrt-Passwall/openwrt-passwall2" "main" "pkg"
 UPDATE_PACKAGE "diskmanager" "4IceG/luci-app-mini-diskmanager" "main"
 UPDATE_PACKAGE "easytier" "EasyTier/luci-app-easytier" "main"
 UPDATE_PACKAGE "qmodem" "FUjr/QModem" "main"
+
+# viking 大杂烩：名称列表用于清理 feeds 中同名目录，实际编译由 .config 决定。
+# 你配置中启用 luci-app-wolultra、注释 luci-app-wolplus，因此这里保留两者名称仅用于清理，不会强行安装 wolplus。
 UPDATE_PACKAGE "viking" "VIKINGYFY/packages" "main" "" "axonhub gecoosac miniupnpd sing-box luci-app-homeproxy luci-app-timewol luci-app-upnp luci-app-wolplus luci-app-wolultra"
 
 UPDATE_PACKAGE "diskman" "sbwml/luci-app-diskman" "main"
@@ -91,6 +94,18 @@ UPDATE_PACKAGE "mt5700" "LianXia233/luci-app-mt5700" "main"
 UPDATE_PACKAGE "mt5700m" "LianXia233/luci-app-mt5700m" "main"
 UPDATE_PACKAGE "netmonitor" "LianXia233/luci-app-netmonitor" "main"
 UPDATE_PACKAGE "qmodem-generic" "LianXia233/luci-app-qmodem-generic" "main"
+
+# ==========================================
+# 9. 新增稳定插件
+# ==========================================
+# 配置中启用了 CONFIG_PACKAGE_luci-app-bandix=y，因此需要克隆 bandix 相关仓库。
+UPDATE_PACKAGE "luci-app-bandix" "timsaya/luci-app-bandix" "main"
+UPDATE_PACKAGE "openwrt-bandix" "timsaya/openwrt-bandix" "main"
+
+# 注意：luci-app-vlmcsd 与 vlmcsd 本体存在文件覆盖冲突，是之前编译失败的直接原因。
+# 这里不再克隆该 LuCI 包；同时请把 .config 里的 CONFIG_PACKAGE_luci-app-vlmcsd=y 也注释掉。
+# 如确实需要 KMS，请单独处理 vlmcsd 本体，不要启用这个有冲突的 LuCI 包。
+# UPDATE_PACKAGE "luci-app-vlmcsd" "openwrt-develop/luci-app-vlmcsd" "master"
 
 #更新软件包版本
 UPDATE_VERSION() {
