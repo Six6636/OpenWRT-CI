@@ -63,6 +63,18 @@ UPDATE_PACKAGE "passwall" "Openwrt-Passwall/openwrt-passwall" "main" "pkg"
 UPDATE_PACKAGE "passwall2" "Openwrt-Passwall/openwrt-passwall2" "main" "pkg"
 UPDATE_PACKAGE "luci-app-tailscale" "asvow/luci-app-tailscale" "main"
 
+# asvow 的 LuCI 包与 feeds/packages/net/tailscale 都提供
+# /etc/init.d/tailscale 和 /etc/config/tailscale，apk 会报 trying to overwrite。
+# 主包的 init 随 UPDATE_VERSION 一起升级，保留主包，删除 LuCI 包内的重复文件。
+LUCI_TS_DIR="./package/luci-app-tailscale"
+if [ -d "$LUCI_TS_DIR" ]; then
+	rm -f "$LUCI_TS_DIR/root/etc/init.d/tailscale" \
+	      "$LUCI_TS_DIR/root/etc/config/tailscale"
+	sed -i -e '\#^/etc/config/tailscale[[:space:]]*$#d' \
+	       -e '/conffiles.*etc\/config\/tailscale/d' \
+	       "$LUCI_TS_DIR/Makefile"
+fi
+
 UPDATE_PACKAGE "diskmanager" "4IceG/luci-app-mini-diskmanager" "main"
 UPDATE_PACKAGE "easytier" "EasyTier/luci-app-easytier" "main"
 UPDATE_PACKAGE "qmodem" "FUjr/QModem" "main"
