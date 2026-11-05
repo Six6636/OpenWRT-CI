@@ -1,42 +1,55 @@
-#科学插件调整
-#CONFIG_PACKAGE_luci-app-homeproxy=y
-#增加插件
-CONFIG_PACKAGE_luci-app-autoreboot=y
-#CONFIG_PACKAGE_luci-app-gecoosac=y
-CONFIG_PACKAGE_luci-app-mini-diskmanager=y
-CONFIG_PACKAGE_luci-app-natmapt=y
-CONFIG_PACKAGE_luci-app-partexp=y
-CONFIG_PACKAGE_luci-app-samba4=y
-CONFIG_PACKAGE_luci-app-upnp=y
-CONFIG_PACKAGE_luci-app-wolultra=y
-#CONFIG_PACKAGE_luci-app-wolplus=y
-#删除插件
-CONFIG_PACKAGE_luci-app-attendedsysupgrade=n
-CONFIG_PACKAGE_luci-app-wol=n
-#参数调整
+
+# ============================================================
+# ZN-M2 / IPQ6000
+# VIKINGYFY ImmortalWrt owrt
+# 512MB RAM / WIFI-YES / NSS
+# ============================================================
+
+# ------------------ 编译参数 ------------------
 CONFIG_CCACHE=y
 CONFIG_DEVEL=y
 CONFIG_FEED_video=n
 CONFIG_FEED_pon_drivers=n
 CONFIG_FEED_pon_userspace=n
-CONFIG_TARGET_MULTI_PROFILE=y
-CONFIG_TARGET_PER_DEVICE_ROOTFS=y
-CONFIG_TARGET_ROOTFS_INITRAMFS=n
-#内核调整
-CONFIG_PACKAGE_kmod-ata-ahci=y
-CONFIG_PACKAGE_kmod-ata-core=y
+
+# ------------------ 设备平台 ------------------
+CONFIG_TARGET_qualcommax=y
+CONFIG_TARGET_qualcommax_ipq60xx=y
+CONFIG_TARGET_DEVICE_qualcommax_ipq60xx_DEVICE_zn_m2=y
+
+# ------------------ 科学插件 ------------------
+CONFIG_PACKAGE_luci-app-nikki=y
+CONFIG_PACKAGE_luci-app-tailscale=y
+
+# ------------------ LuCI 插件 ------------------
+CONFIG_PACKAGE_luci-app-autoreboot=y
+CONFIG_PACKAGE_luci-app-natmapt=y
+CONFIG_PACKAGE_luci-app-partexp=y
+CONFIG_PACKAGE_luci-app-samba4=y
+CONFIG_PACKAGE_luci-app-upnp=y
+CONFIG_PACKAGE_luci-app-wolultra=y
+
+# ------------------ 私人定制插件 ------------------
+CONFIG_PACKAGE_luci-app-bandix=y
+CONFIG_PACKAGE_luci-app-appfilter=y
+CONFIG_PACKAGE_luci-app-ttyd=y
+CONFIG_PACKAGE_luci-app-vlmcsd=y
+
+# ------------------ eBPF ------------------
+CONFIG_PACKAGE_kmod-ebpf=y
+CONFIG_PACKAGE_kmod-bpf=y
+
+# ------------------ 网络内核 ------------------
 CONFIG_PACKAGE_kmod-bonding=y
 CONFIG_PACKAGE_kmod-dsa=y
 CONFIG_PACKAGE_kmod-dummy=y
-CONFIG_PACKAGE_kmod-fs-btrfs=y
-CONFIG_PACKAGE_kmod-fs-ksmbd=y
-CONFIG_PACKAGE_kmod-fuse=y
 CONFIG_PACKAGE_kmod-inet-diag=y
 CONFIG_PACKAGE_kmod-inet-mptcp-diag=y
-CONFIG_PACKAGE_kmod-mtd-rw=y
 CONFIG_PACKAGE_kmod-netlink-diag=y
 CONFIG_PACKAGE_kmod-nf-nat=y
 CONFIG_PACKAGE_kmod-nf-nat6=y
+
+# ------------------ nftables ------------------
 CONFIG_PACKAGE_kmod-nft-arp=y
 CONFIG_PACKAGE_kmod-nft-bridge=y
 CONFIG_PACKAGE_kmod-nft-connlimit=y
@@ -50,129 +63,127 @@ CONFIG_PACKAGE_kmod-nft-queue=y
 CONFIG_PACKAGE_kmod-nft-socket=y
 CONFIG_PACKAGE_kmod-nft-tproxy=y
 CONFIG_PACKAGE_kmod-nft-xfrm=y
-CONFIG_PACKAGE_kmod-nvme=y
-CONFIG_PACKAGE_kmod-ovpn-backports=y
-CONFIG_PACKAGE_kmod-sound-core=y
+
+# ------------------ 网络隧道 ------------------
 CONFIG_PACKAGE_kmod-tun=y
-CONFIG_PACKAGE_kmod-usb3=y
-CONFIG_PACKAGE_kmod-usb-audio=y
-CONFIG_PACKAGE_kmod-usb-core=y
-CONFIG_PACKAGE_kmod-usb-dwc3=y
-CONFIG_PACKAGE_kmod-usb-ehci=y
-CONFIG_PACKAGE_kmod-usb-net=y
-CONFIG_PACKAGE_kmod-usb-net-asix=y
-CONFIG_PACKAGE_kmod-usb-net-asix-ax88179=y
-CONFIG_PACKAGE_kmod-usb-net-cdc-eem=y
-CONFIG_PACKAGE_kmod-usb-net-cdc-ether=y
-CONFIG_PACKAGE_kmod-usb-net-cdc-mbim=y
-CONFIG_PACKAGE_kmod-usb-net-cdc-ncm=y
-CONFIG_PACKAGE_kmod-usb-net-cdc-subset=y
-CONFIG_PACKAGE_kmod-usb-net-huawei-cdc-ncm=y
-CONFIG_PACKAGE_kmod-usb-net-ipheth=y
-CONFIG_PACKAGE_kmod-usb-net-rndis=y
-CONFIG_PACKAGE_kmod-usb-net-rtl8150=y
-CONFIG_PACKAGE_kmod-usb-net-rtl8152=y
-CONFIG_PACKAGE_kmod-usb-net-sierrawireless=y
-CONFIG_PACKAGE_kmod-usb-ohci=y
-CONFIG_PACKAGE_kmod-usb-storage=y
-CONFIG_PACKAGE_kmod-usb-storage-extras=y
-CONFIG_PACKAGE_kmod-usb-storage-uas=y
-CONFIG_PACKAGE_kmod-usb-uhci=y
-CONFIG_PACKAGE_kmod-veth=y
 CONFIG_PACKAGE_kmod-wireguard=y
-#组件调整
+CONFIG_PACKAGE_kmod-ovpn-backports=y
+CONFIG_PACKAGE_kmod-veth=y
+
+# ------------------ 文件系统 ------------------
+CONFIG_PACKAGE_kmod-fs-btrfs=y
+CONFIG_PACKAGE_kmod-fuse=y
+
+# ------------------ 系统组件 ------------------
 CONFIG_PACKAGE_autocore=y
-CONFIG_PACKAGE_automount=y
 CONFIG_PACKAGE_blkid=y
-CONFIG_PACKAGE_cfdisk=y
-CONFIG_PACKAGE_cgdisk=y
 CONFIG_PACKAGE_coremark=y
 CONFIG_PACKAGE_cpufreq=y
 CONFIG_PACKAGE_curl=y
 CONFIG_PACKAGE_dmesg=y
-CONFIG_PACKAGE_exfat-fsck=y
-CONFIG_PACKAGE_exfat-mkfs=y
-CONFIG_PACKAGE_fdisk=y
 CONFIG_PACKAGE_fullconenat-sonic=y
-CONFIG_PACKAGE_gdisk=y
 CONFIG_PACKAGE_htop=y
 CONFIG_PACKAGE_iperf3=y
 CONFIG_PACKAGE_ip-full=y
-CONFIG_PACKAGE_libimobiledevice=y
-CONFIG_PACKAGE_libnvme=y
-CONFIG_PACKAGE_lsblk=y
+
+# ------------------ LuCI 基础组件 ------------------
 CONFIG_PACKAGE_luci-base=y
 CONFIG_PACKAGE_luci-compat=y
 CONFIG_PACKAGE_luci-lib-base=y
 CONFIG_PACKAGE_luci-lib-ipkg=y
 CONFIG_PACKAGE_luci-lua-runtime=y
 CONFIG_PACKAGE_luci-proto-relay=y
-CONFIG_PACKAGE_mmc-utils=y
+
+# ------------------ 系统工具 ------------------
 CONFIG_PACKAGE_nand-utils=y
-CONFIG_PACKAGE_nvme-cli=y
+CONFIG_PACKAGE_mmc-utils=y
 CONFIG_PACKAGE_openssh-keygen=y
 CONFIG_PACKAGE_openssh-sftp-server=y
 CONFIG_PACKAGE_openssl-util=y
 CONFIG_PACKAGE_proto-bonding=y
-CONFIG_PACKAGE_sfdisk=y
-CONFIG_PACKAGE_sgdisk=y
-CONFIG_PACKAGE_smartmontools=y
-CONFIG_PACKAGE_smartmontools-drivedb=y
 CONFIG_PACKAGE_stuntman-client=y
-CONFIG_PACKAGE_usb-modeswitch=y
-CONFIG_PACKAGE_usbmuxd=y
-CONFIG_PACKAGE_usbutils=y
 CONFIG_PACKAGE_xz-utils=y
-#以下私人定制插件
 
-#科学插件调整
-CONFIG_PACKAGE_luci-app-nikki=y
-CONFIG_PACKAGE_luci-app-tailscale=y
-#CONFIG_PACKAGE_luci-app-momo=y
-#CONFIG_PACKAGE_luci-app-openclash=y
-#增加插件
-CONFIG_PACKAGE_luci-app-bandix=y
-CONFIG_PACKAGE_kmod-ebpf=y
-CONFIG_PACKAGE_kmod-bpf=y
-CONFIG_PACKAGE_luci-app-appfilter=y
-CONFIG_PACKAGE_luci-app-ttyd=y
-CONFIG_PACKAGE_luci-app-vlmcsd=y
-#CONFIG_PACKAGE_luci-app-turboacc=y
-#CONFIG_PACKAGE_luci-app-wrtbwmon=n
-#CONFIG_PACKAGE_luci-app-lucky=y
-#CONFIG_PACKAGE_luci-app-smartdns=y
-#CONFIG_PACKAGE_luci-app-netwizard=y
-#重要: mihomo-alpha 和 mihomo-meta 存在循环依赖冲突，必须禁用以解决编译问题
-CONFIG_PACKAGE_mihomo-alpha=n
-CONFIG_PACKAGE_mihomo-meta=n
-#打印机驱动 - USB 打印机和网络打印机支持
-CONFIG_PACKAGE_kmod-lp=y
-CONFIG_PACKAGE_kmod-usb-printer=y
-#打印服务配置 - CUPS 打印服务器 + AirPrint 支持（iOS/Android/Windows）
-#CONFIG_PACKAGE_luci-app-cupsd=y
-#CONFIG_PACKAGE_cupsd=y
-#CONFIG_PACKAGE_cups-filters=y
-#Avahi 服务 - mDNS/DNS-SD 服务发现（AirPrint 依赖）
-#CONFIG_PACKAGE_avahi-daemon=y
-#CONFIG_PACKAGE_avahi-dbus-daemon=y
-#CONFIG_PACKAGE_avahi-utils=y
-#苹果设备打印驱动依赖（AirPrint/iPad/iPhone 支持）# AirPrint 隔空打印完整依赖
-#CONFIG_PACKAGE_libimobiledevice=y
-#CONFIG_PACKAGE_usbmuxd=y
-#CONFIG_PACKAGE_avahi-daemon=y
-#CONFIG_PACKAGE_avahi-utils=y
-#CONFIG_PACKAGE_dbus=y
-#CONFIG_PACKAGE_libdaemon=y
-#CONFIG_PACKAGE_cups=y
-#CONFIG_PACKAGE_cups-filters=y
-#打印机制造商特殊驱动（可选）
-#爱普生(Epson) L系列打印机驱动
-#CONFIG_PACKAGE_gutenprint=y
-#佳能(Canon) 打印机驱动
-#CONFIG_PACKAGE_cups-bjnp=y
-#修复 netspeedtest 缺失的 Python3 依赖环境
-#CONFIG_PACKAGE_luci-app-netspeedtest=y
-#CONFIG_PACKAGE_python3=y
-#CONFIG_PACKAGE_python3-base=y
-#CONFIG_PACKAGE_python3-email=y
-#CONFIG_PACKAGE_python3-pkg-resources=y
+# ------------------ 删除 USB 存储及外设应用 ------------------
+# CONFIG_PACKAGE_luci-app-mini-diskmanager is not set
+# CONFIG_PACKAGE_automount is not set
+# CONFIG_PACKAGE_usbutils is not set
+# CONFIG_PACKAGE_usb-modeswitch is not set
+# CONFIG_PACKAGE_libimobiledevice is not set
+# CONFIG_PACKAGE_usbmuxd is not set
+
+# ------------------ 删除 USB 网络驱动 ------------------
+# CONFIG_PACKAGE_kmod-usb-net is not set
+# CONFIG_PACKAGE_kmod-usb-net-asix is not set
+# CONFIG_PACKAGE_kmod-usb-net-asix-ax88179 is not set
+# CONFIG_PACKAGE_kmod-usb-net-cdc-eem is not set
+# CONFIG_PACKAGE_kmod-usb-net-cdc-ether is not set
+# CONFIG_PACKAGE_kmod-usb-net-cdc-mbim is not set
+# CONFIG_PACKAGE_kmod-usb-net-cdc-ncm is not set
+# CONFIG_PACKAGE_kmod-usb-net-cdc-subset is not set
+# CONFIG_PACKAGE_kmod-usb-net-huawei-cdc-ncm is not set
+# CONFIG_PACKAGE_kmod-usb-net-ipheth is not set
+# CONFIG_PACKAGE_kmod-usb-net-rndis is not set
+# CONFIG_PACKAGE_kmod-usb-net-rtl8150 is not set
+# CONFIG_PACKAGE_kmod-usb-net-rtl8152 is not set
+# CONFIG_PACKAGE_kmod-usb-net-sierrawireless is not set
+
+# ------------------ 删除 USB 存储驱动 ------------------
+# CONFIG_PACKAGE_kmod-usb-storage is not set
+# CONFIG_PACKAGE_kmod-usb-storage-extras is not set
+# CONFIG_PACKAGE_kmod-usb-storage-uas is not set
+
+# ------------------ 删除 USB 音频及打印 ------------------
+# CONFIG_PACKAGE_kmod-usb-audio is not set
+# CONFIG_PACKAGE_kmod-usb-printer is not set
+# CONFIG_PACKAGE_kmod-lp is not set
+
+# ------------------ 删除 USB 主控（按依赖检查） ------------------
+# CONFIG_PACKAGE_kmod-usb3 is not set
+# CONFIG_PACKAGE_kmod-usb-dwc3 is not set
+# CONFIG_PACKAGE_kmod-usb-ehci is not set
+# CONFIG_PACKAGE_kmod-usb-ohci is not set
+# CONFIG_PACKAGE_kmod-usb-uhci is not set
+
+# ------------------ 删除 SATA / NVMe ------------------
+# CONFIG_PACKAGE_kmod-ata-ahci is not set
+# CONFIG_PACKAGE_kmod-ata-core is not set
+# CONFIG_PACKAGE_kmod-nvme is not set
+# CONFIG_PACKAGE_libnvme is not set
+# CONFIG_PACKAGE_nvme-cli is not set
+
+# ------------------ 删除磁盘管理工具 ------------------
+# CONFIG_PACKAGE_cfdisk is not set
+# CONFIG_PACKAGE_cgdisk is not set
+# CONFIG_PACKAGE_exfat-fsck is not set
+# CONFIG_PACKAGE_exfat-mkfs is not set
+# CONFIG_PACKAGE_fdisk is not set
+# CONFIG_PACKAGE_gdisk is not set
+# CONFIG_PACKAGE_sfdisk is not set
+# CONFIG_PACKAGE_sgdisk is not set
+# CONFIG_PACKAGE_smartmontools is not set
+# CONFIG_PACKAGE_smartmontools-drivedb is not set
+
+# ------------------ 删除打印服务 ------------------
+# CONFIG_PACKAGE_cupsd is not set
+# CONFIG_PACKAGE_cups-filters is not set
+# CONFIG_PACKAGE_avahi-daemon is not set
+# CONFIG_PACKAGE_avahi-dbus-daemon is not set
+# CONFIG_PACKAGE_avahi-utils is not set
+# CONFIG_PACKAGE_gutenprint is not set
+# CONFIG_PACKAGE_cups-bjnp is not set
+
+# ------------------ 禁用冲突组件 ------------------
+# CONFIG_PACKAGE_mihomo-alpha is not set
+# CONFIG_PACKAGE_mihomo-meta is not set
+
+# ------------------ 暂不启用 ------------------
+# CONFIG_PACKAGE_luci-app-openclash is not set
+# CONFIG_PACKAGE_luci-app-momo is not set
+# CONFIG_PACKAGE_luci-app-homeproxy is not set
+# CONFIG_PACKAGE_luci-app-turboacc is not set
+# CONFIG_PACKAGE_luci-app-wrtbwmon is not set
+# CONFIG_PACKAGE_luci-app-lucky is not set
+# CONFIG_PACKAGE_luci-app-smartdns is not set
+# CONFIG_PACKAGE_luci-app-netwizard is not set
+# CONFIG_PACKAGE_luci-app-netspeedtest is not set
