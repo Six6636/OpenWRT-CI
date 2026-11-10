@@ -4,9 +4,10 @@
 name: Auto-Clean
 
 on:
-  # 每周六 北京时间早上5点自动清理
+  #自动清理：每周六 北京时间早上5点
   schedule:
     - cron: '0 21 * * 5'
+  #手动清理
   workflow_dispatch:
 
 permissions: write-all
@@ -18,7 +19,7 @@ jobs:
       - name: Delete old Releases and Workflows
         uses: ophub/delete-releases-workflows@main
         with:
-          gh_token: ${{ secrets.PAT_TOKEN }}
+          gh_token: ${{secrets.GITHUB_TOKEN}}
           delete_releases: true
           releases_keep_latest: 0
           delete_tags: true
